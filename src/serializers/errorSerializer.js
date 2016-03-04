@@ -2,6 +2,16 @@
 
 var logger = require('logger');
 var JSONAPISerializer = require('jsonapi-serializer').Serializer;
+var slug = require('slug');
+slug.defaults.modes['pretty'] = {
+    replacement: '_',
+    symbols: true,
+    remove: /[.]/g,
+    lower: false,
+    charmap: slug.charmap,
+    multicharmap: slug.multicharmap
+};
+
 
 class ErrorSerializer {
 
@@ -22,6 +32,7 @@ class ErrorSerializer {
       source:{
         parameter: keys[0]
       },
+      code: slug(message),
       title: message,
       detail: data[keys[0]]
     };

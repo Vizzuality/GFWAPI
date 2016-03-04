@@ -48,7 +48,7 @@ module.exports = function (grunt) {
           clearRequireCache: true, // Optionally clear the require cache before running tests (defaults to false)
 
         },
-        src: ['test/unit/**/*.unit.js']
+        src: ['test/unit/**/*.test.js']
       },
       e2e: {
         options: {

@@ -35,10 +35,16 @@ describe('Users API', function () {
       if(err) {
         throw err;
       }
+      logger.debug(res);
       res.should.have.status(400);
       done();
     });
   });
+
+  //TODO: Create test to check headers (jsonapi headers)
+  // Accept: application/vnd.api+json --> all request
+  // Content-type: application/vnd.api+json -->  (POST, PUT, PATCH)
+  // https://github.com/rudijs/koa-jsonapi-headers
 
   after(function* () {
 

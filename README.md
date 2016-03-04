@@ -3,39 +3,44 @@ This repository is the base the all microservices implemented in nodejs.
 
 ## Installation
 
-````bash
+```bash
 npm install
 
 npm install -g bunyan  // logger system
-````
+```
+
 ## Run
-Execute the next command:
-Environment available: dev, test, staging, prod
-````bash
+Execute the next command: Environment available: dev, test, staging, prod
+
+```bash
     NODE_ENV=<env> npm start
-````
+```
+
 if you want see the logs formatted execute:
-````bash
+
+```bash
     NODE_ENV=<env> npm start | bunyan
-````
+```
+
 ## Run in develop mode
 We use grunt. Execute the next command:
-````bash
+
+```bash
     npm run develop
-````
+```
 
 ## Estructure
-
 ### Routes Folder
-This folder contain the distinct files that define the routes of the microservice. All files must be end with suffix Router.
-Ex:
-````bash
+This folder contain the distinct files that define the routes of the microservice. All files must be end with suffix Router. Ex:
+
+```bash
 /routes
 ------ /api
 ---------- userRouter.js // in this file define /user
 
 The complete path is: /api/user
-````
+```
+
 The name of subfolders of the routes folder define the subpath of the endpoints
 
 ### Services Folder
@@ -45,20 +50,19 @@ This folder contain the services of the application. The logic services.
 This folder contains the models of database or POJOs. For example, if we use mongoose, this folder contains the mongoose models.
 
 ### Serializers Folder
-This folder contains files that modify the output to return json standard [jsonapi](http://jsonapi.org/)
-Serializer library: [jsonapi-serializer](https://github.com/SeyZ/jsonapi-serializer)
+This folder contains files that modify the output to return json standard [jsonapi](http://jsonapi.org/) Serializer library: [jsonapi-serializer](https://github.com/SeyZ/jsonapi-serializer)
 
 ### Validators Folder
-This folder contains the distinct validator classes that validate the input body or input query params.
-Use [koa-validate](https://github.com/RocksonZeta/koa-validate)
+This folder contains the distinct validator classes that validate the input body or input query params. Use [koa-validate](https://github.com/RocksonZeta/koa-validate)
 
 ### Config
 This folder contains the distinct files by environment. Always it must exist:
-* dev.json (develop)
-* staging.json (staging environment)
-* prod.json (production environment)
+- dev.json (develop)
+- staging.json (staging environment)
+- prod.json (production environment)
 
 We use [config](https://github.com/lorenwest/node-config) module.
+
 ### App.js
 This file load the application and dependencies.
 
@@ -69,9 +73,10 @@ This file is responsible for loading all routes and declare it. it search all fi
 This file config logger of the application
 
 ## test
-This folder contains the tests of the microservice.
-2 folders
+This folder contains the tests of the microservice. 2 folders
+
 ### unit
-  This folder contains the unit tests. It contains a subfolder by each module of the microservice (serializer, services, models, etc)
+  This folder contains the unit tests. It contains a subfolder by each module of the microservice (serializer, services, models, etc)   All files contains .test.js suffix
+
 ### e2e
-     This folder contains the e2e tests.
+ This folder contains the e2e tests.  All files contains .spec.js suffix
