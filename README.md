@@ -69,4 +69,9 @@ This file is responsible for loading all routes and declare it. it search all fi
 This file config logger of the application
 
 ## test
-This folder contains the tests of the microservice. It contains a subfolder by each module of the microservice (serializer, services, models, etc)
+This folder contains the tests of the microservice.
+2 folders
+### unit
+  This folder contains the unit tests. It contains a subfolder by each module of the microservice (serializer, services, models, etc)
+### e2e
+     This folder contains the e2e tests.
