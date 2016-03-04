@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "NODE_PATH=src NODE_ENV=test grunt mochaTest",
+    "test-e2e": "NODE_PATH=src NODE_ENV=test grunt e2eTest",
     "develop": "NODE_PATH=src grunt | bunyan",
     "startDev": "NODE_PATH=src NODE_ENV=dev node index | bunyan",
     "start": "NODE_PATH=src node index"
@@ -49,6 +50,8 @@
     "grunt-notify": "0.4.3",
     "load-grunt-tasks": "3.4.0",
     "mocha": "2.4.5",
-    "should": "8.2.2"
+    "should": "8.2.2",
+    "should-http": "0.0.4",
+    "supertest": "1.2.0"
   }
 }

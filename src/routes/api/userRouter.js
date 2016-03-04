@@ -12,7 +12,7 @@ var router = new Router({
 class UserRouter {
 
   static * getUsers(){
-
+    this.body = [];
   }
 
   static * createUser(){
