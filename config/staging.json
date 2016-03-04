@@ -1,0 +1,11 @@
+{
+    "logger": {
+        "name": "microservice-STAGING",
+        "level": "debug",
+        "toFile": false,
+        "dirLogFile": null
+    },
+    "server": {
+        "port": 3000
+    }
+}

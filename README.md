@@ -17,12 +17,12 @@ Execute the next command:
 ## Estructure
 
 ### Routes Folder
-This folder contain the distinct files that define the routes of the microservice.
+This folder contain the distinct files that define the routes of the microservice. All files must be end with suffix Router.
 Ex:
 ````bash
 /routes
 ------ /api
----------- user.js // in this file define /user
+---------- userRouter.js // in this file define /user
 
 The complete path is: /api/user
 ````
@@ -53,7 +53,7 @@ We use [config](https://github.com/lorenwest/node-config) module.
 This file load the application and dependencies.
 
 ### Loader.js
-This file is responsible for loading all routes and declare it.
+This file is responsible for loading all routes and declare it. it search all files that ends with Router.js suffix in the routes folder and subfolders
 
 ## test
 This folder contains the tests of the microservice. It contains a subfolder by each module of the microservice (serializer, services, models, etc)

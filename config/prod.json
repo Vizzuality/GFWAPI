@@ -1,0 +1,11 @@
+{
+    "logger": {
+        "name": "microservice",
+        "level": "error",
+        "toFile": true,
+        "dirLogFile": "/var/logs/microservice.log"
+    },
+    "server": {
+        "port": null
+    }
+}
