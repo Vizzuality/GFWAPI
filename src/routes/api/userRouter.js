@@ -5,14 +5,14 @@ var logger = require('logger');
 var UserValidator = require('validators/userValidator');
 
 var router = new Router({
-    prefix: '/user'
+    prefix: '/users'
 });
 
 
 class UserRouter {
 
   static * getUsers(){
-    
+
   }
 
   static * createUser(){

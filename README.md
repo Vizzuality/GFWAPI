@@ -10,8 +10,18 @@ npm install -g bunyan  // logger system
 ````
 ## Run
 Execute the next command:
+Environment available: dev, test, staging, prod
 ````bash
-    npm start
+    NODE_ENV=<env> npm start
+````
+if you want see the logs formatted execute:
+````bash
+    NODE_ENV=<env> npm start | bunyan
+````
+## Run in develop mode
+We use grunt. Execute the next command:
+````bash
+    npm run develop
 ````
 
 ## Estructure
