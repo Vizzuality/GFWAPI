@@ -55,5 +55,8 @@ This file load the application and dependencies.
 ### Loader.js
 This file is responsible for loading all routes and declare it. it search all files that ends with Router.js suffix in the routes folder and subfolders
 
+### logger.js
+This file config logger of the application
+
 ## test
 This folder contains the tests of the microservice. It contains a subfolder by each module of the microservice (serializer, services, models, etc)
