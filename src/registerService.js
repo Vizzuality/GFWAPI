@@ -61,7 +61,7 @@ var register = function () {
                 }
 
                 logger.info('Register service in API Gateway correct!');
-                process.on('exit', exitHandler.bind(this, 'exit'));
+                // process.on('exit', exitHandler.bind(this, 'exit'));
                 process.on('SIGINT', exitHandler.bind(this, 'SIGINT'));
                 process.on('SIGTERM', exitHandler.bind(this, 'SIGTERM'));
                 process.on('SIGKILL', exitHandler.bind(this, 'SIGKILL'));
