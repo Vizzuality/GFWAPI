@@ -37,6 +37,7 @@ var register = function () {
     co(function *(){
         if(process.env.SELF_REGISTRY) {
             logger.info('Registering service in API Gateway...');
+            logger.debug('asdfad');
             let serviceConfig = {
                 name: config.get('service.name'),
                 url: '/usuarios',
@@ -46,29 +47,32 @@ var register = function () {
                     url:  config.get('service.uri') + '/api/users'
                 }]
             };
+            logger.debug(serviceConfig);
             try {
+
                 let result = yield request({
                     uri: apiGatewayUri,
                     method: 'POST',
                     json: true,
                     body: serviceConfig
                 });
+
                 if(result.statusCode !== 200) {
-                    logger.error('Error registering service:', result.body);
+                    logger.error('Error registering service:', result);
                     process.exit();
                 } else {
                     idService = result.body._id;
                 }
 
                 logger.info('Register service in API Gateway correct!');
-                // process.on('exit', exitHandler.bind(this, 'exit'));
+                process.on('exit', exitHandler.bind(this, 'exit'));
                 process.on('SIGINT', exitHandler.bind(this, 'SIGINT'));
                 process.on('SIGTERM', exitHandler.bind(this, 'SIGTERM'));
-                process.on('SIGKILL', exitHandler.bind(this, 'SIGKILL'));
+                // process.on('SIGKILL', exitHandler.bind(this, 'SIGKILL'));
                 process.on('uncaughtException', exitHandler.bind(this, 'uncaughtException'));
 
             } catch(e) {
-                logger.error('Error registering service', e);
+                logger.error('Error registering service2', e);
                 process.exit();
             }
         }
