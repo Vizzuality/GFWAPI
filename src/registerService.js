@@ -26,7 +26,8 @@ var unregister = function* () {
     }
 };
 
-var exitHandler = function () {
+var exitHandler = function (signal) {
+    logger.error('Signal', signal);
     co(function* () {
         yield unregister();
     });
@@ -60,11 +61,11 @@ var register = function () {
                 }
 
                 logger.info('Register service in API Gateway correct!');
-                process.on('exit', exitHandler);
-                process.on('SIGINT', exitHandler);
-                process.on('SIGTERM', exitHandler);
-                process.on('SIGKILL', exitHandler);
-                process.on('uncaughtException', exitHandler);
+                process.on('exit', exitHandler.bind(this, 'exit'));
+                process.on('SIGINT', exitHandler.bind(this, 'SIGINT'));
+                process.on('SIGTERM', exitHandler.bind(this, 'SIGTERM'));
+                process.on('SIGKILL', exitHandler.bind(this, 'SIGKILL'));
+                process.on('uncaughtException', exitHandler.bind(this, 'uncaughtException'));
 
             } catch(e) {
                 logger.error('Error registering service', e);
