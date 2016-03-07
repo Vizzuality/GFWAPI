@@ -22,6 +22,17 @@ if you want see the logs formatted execute:
     NODE_ENV=<env> npm start | bunyan
 ```
 
+## Execute test
+```bash
+    npm test
+```
+
+if you want see the logs formatted execute:
+
+```bash
+    npm test | bunyan
+```
+
 ## Run in develop mode
 We use grunt. Execute the next command:
 
