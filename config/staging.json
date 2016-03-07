@@ -10,7 +10,8 @@
     },
     "service": {
         "name": "Skeleton Service",
-        "uri": "http://user-microservice-vizzuality.herokuapp.com"
+        "uri": "http://user-microservice-vizzuality.herokuapp.com",
+        "port": null
     },
     "apiGateway":{
         "uri": "http://localhost:8000/gateway/service"

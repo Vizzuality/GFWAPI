@@ -63,6 +63,7 @@ var register = function () {
                 process.on('exit', exitHandler);
                 process.on('SIGINT', exitHandler);
                 process.on('SIGTERM', exitHandler);
+                process.on('SIGKILL', exitHandler);
                 process.on('uncaughtException', exitHandler);
 
             } catch(e) {
