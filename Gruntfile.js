@@ -102,7 +102,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('e2eTest', ['express:dev', 'mochaTest:e2e']);
 
-  grunt.registerTask('test', ['unitTest', 'e2eTest']);
+  grunt.registerTask('test', ['jshint', 'unitTest', 'e2eTest']);
 
   grunt.registerTask('serve', ['express:dev', 'watch']);
 
