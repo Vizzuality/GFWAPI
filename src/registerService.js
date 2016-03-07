@@ -10,7 +10,7 @@ var apiGatewayUri = process.env.API_GATEWAY_URI || config.get('apiGateway.uri');
 var unregister = function* () {
     logger.info('Unregistering service ', idService);
     try {
-        let result =null; /* yield request({
+        let result =apiGatewayUri + '/' + idService; /* yield request({
             uri: apiGatewayUri + '/' + idService,
             method: 'DELETE'
         });*/
