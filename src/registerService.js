@@ -10,10 +10,10 @@ var apiGatewayUri = process.env.API_GATEWAY_URI || config.get('apiGateway.uri');
 var unregister = function* () {
     logger.info('Unregistering service ', idService);
     try {
-        let result = yield request({
+        let result =null; /* yield request({
             uri: apiGatewayUri + '/' + idService,
             method: 'DELETE'
-        });
+        });*/
         logger.debug(result);
         if(result.statusCode !== 200) {
             logger.error('Error unregistering service');
@@ -38,7 +38,6 @@ var register = function () {
     co(function *(){
         if(process.env.SELF_REGISTRY) {
             logger.info('Registering service in API Gateway...');
-            logger.debug('asdfad');
             let serviceConfig = {
                 name: config.get('service.name'),
                 url: '/usuarios',
@@ -48,7 +47,7 @@ var register = function () {
                     url:  config.get('service.uri') + '/api/users'
                 }]
             };
-            
+
             try {
 
                 let result = yield request({
