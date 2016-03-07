@@ -16,13 +16,13 @@ var unregister = function* () {
         });
         if(result.statusCode !== 200) {
             logger.error('Error unregistering service');
-            process.exit();
+            // process.exit();
         }
         logger.info('Unregister service correct!');
-        process.exit();
+        // process.exit();
     } catch(e) {
         logger.error('Error unregistering service');
-        process.exit();
+        // process.exit();
     }
 };
 
@@ -72,7 +72,7 @@ var register = function () {
                 process.on('uncaughtException', exitHandler.bind(this, 'uncaughtException'));
 
             } catch(e) {
-                logger.error('Error registering service2', e);
+                logger.error('Error registering service', e);
                 process.exit();
             }
         }
