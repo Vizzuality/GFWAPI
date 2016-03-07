@@ -1,0 +1,39 @@
+{
+    "users": [{
+        "id": "1",
+        "name": "Ra",
+        "age": 28,
+        "email": "raul.requero@vizzuality.com",
+        "role": {
+            "id": 1,
+            "name": "admin"
+        }
+    }, {
+        "id": "2",
+        "name": "Vizzuality",
+        "email": "info@vizzuality.com",
+        "role": {
+            "id": 1,
+            "name": "admin"
+        }
+    }, {
+        "id": "3",
+        "name": "Pepe",
+        "age": 35,
+        "email": "pepe@gmail.com",
+        "role": {
+            "id": 2,
+            "name": "user"
+        }
+    }],
+    "roles":{
+        "1":{
+            "id": 1,
+            "name": "admin"
+        },
+        "2":{
+            "id": 2,
+            "name": "user"
+        }
+    }
+}

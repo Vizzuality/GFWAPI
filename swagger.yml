@@ -154,13 +154,17 @@ definitions:
             description: Role's name
   UserCreate:
     type: object
+    required:
+      - name
+      - email
+      - rol
     properties:
       name:
         type: string
         description: User's name
-      surname:
+      email:
         type: string
-        description: User's surname
+        description: User's email
       age:
         type: integer
         format: int32
@@ -183,9 +187,9 @@ definitions:
           name:
             type: string
             description: User's name
-          surname:
+          email:
             type: string
-            description: User's surname
+            description: User's email
           age:
             type: integer
             format: int32

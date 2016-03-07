@@ -14,10 +14,20 @@ var app = koa();
 
 //if environment is dev then load koa-logger
 if(process.env.NODE_ENV === 'dev') {
-    app.use(koaLogger());
+  app.use(koaLogger());
 }
 
 app.use(bodyParser());
+
+app.use(function *(next) {
+  try {
+    yield next;
+  } catch(err) {
+    this.status = err.status || 500;
+    this.body = err.message;
+  }
+  this.response.type = 'application/vnd.api+json';
+});
 
 app.use(validate());
 

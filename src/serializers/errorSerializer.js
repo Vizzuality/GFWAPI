@@ -3,7 +3,7 @@
 var logger = require('logger');
 var JSONAPISerializer = require('jsonapi-serializer').Serializer;
 var slug = require('slug');
-slug.defaults.modes['pretty'] = {
+slug.defaults.modes.pretty = {
     replacement: '_',
     symbols: true,
     remove: /[.]/g,
@@ -32,7 +32,7 @@ class ErrorSerializer {
       source:{
         parameter: keys[0]
       },
-      code: slug(message),
+      code: slug(message).toLowerCase(),
       title: message,
       detail: data[keys[0]]
     };
