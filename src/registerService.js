@@ -5,12 +5,13 @@ var request = require('co-request');
 var url = require('url');
 var co = require('co');
 var idService = null;
+var apiGatewayUri = process.env.API_GATEWAY_URI || config.get('apiGateway.uri');
 
 var unregister = function* () {
     logger.info('Unregistering service ', idService);
     try {
         let result = yield request({
-            uri: config.get('apiGateway.uri') + '/' + idService,
+            uri: apiGatewayUri + '/' + idService,
             method: 'DELETE'
         });
         if(result.statusCode !== 200) {
@@ -51,13 +52,14 @@ var register = function () {
             };
             try {
                 let result = yield request({
-                    uri: config.get('apiGateway.uri'),
+                    uri: apiGatewayUri,
                     method: 'POST',
                     json: true,
                     body: serviceConfig
                 });
                 if(result.statusCode !== 200) {
                     logger.error('Error registering service');
+                    logger.error(result);
                     process.exit();
                 } else {
                     idService = result.body._id;
