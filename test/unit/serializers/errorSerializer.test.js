@@ -20,7 +20,7 @@ describe('Error serializer test', function() {
 
     it('Generate correct jsonapi response', function() {
       let response = errorSerializer.serializeValidationBodyErrors(data);
-      logger.debug(response);
+      
       response.should.not.be.a.Array();
       response.should.have.property('errors');
       response.errors.should.have.length(2);
