@@ -43,10 +43,7 @@ var port = process.env.PORT || config.get('service.port');
 
 // Listen in port and localhost. Only localhost because by security, this microservice is only accesible from the same machine
 server.listen(port, function(){
-    setTimeout(function(){
-        require('registerService')();
-    }, 5000);
-
+    require('registerService')();
 });
 
 

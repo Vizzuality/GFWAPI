@@ -28,13 +28,21 @@ var unregister = function* () {
 
 var exitHandler = function (signal) {
     logger.error('Signal', signal);
-    co(function* () {
-        yield unregister();
+    require('request').del(apiGatewayUri + '/' + idService, function (error, response, body) {
+        if(!error && response.statusCode == 200) {
+            console.log(body) // Show the HTML for the Google homepage.
+        } else{
+            logger.error('Error unregistering service');
+        }
+        process.exit();
     });
+    // co(function* () {
+    //     yield unregister();
+    // });
 };
 
 var register = function () {
-    co(function *(){
+    co(function* () {
         if(process.env.SELF_REGISTRY) {
             logger.info('Registering service in API Gateway...');
             logger.debug('asdfad');
@@ -44,7 +52,7 @@ var register = function () {
                 method: 'GET',
                 endpoints: [{
                     method: 'GET',
-                    url:  config.get('service.uri') + '/api/users'
+                    url: config.get('service.uri') + '/api/users'
                 }]
             };
             logger.debug(serviceConfig);
