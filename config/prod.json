@@ -7,5 +7,14 @@
     },
     "server": {
         "port": null
+    },
+    "service": {
+        "name": "Skeleton Service",
+        "hostname": "localhost",
+        "port": 3000,
+        "protocol": "http"
+    },
+    "apiGateway":{
+        "uri": "http://localhost:8000/gateway/service"
     }
 }

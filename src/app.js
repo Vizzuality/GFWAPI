@@ -39,9 +39,11 @@ var server = require('http').Server(app.callback());
 
 // get port of environment, if not exist obtain of the config.
 // In production environment, the port must be declared in environment variable
-var port = process.env.PORT || config.get('server.port');
+var port = process.env.PORT || config.get('service.port');
 
 // Listen in port and localhost. Only localhost because by security, this microservice is only accesible from the same machine
 server.listen(port, 'localhost');
 
-logger.info('Server started in port:' + config.get('server.port'));
+require('registerService')();
+
+logger.info('Server started in port:' + config.get('service.port'));

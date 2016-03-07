@@ -7,7 +7,7 @@ module.exports = function (grunt) {
     pkg: grunt.file.readJSON('package.json'),
 
     clean: {
-      doc: ['doc']
+      
     },
     jshint: {
       js: {
@@ -95,8 +95,6 @@ module.exports = function (grunt) {
     }
   });
 
-
-  grunt.registerTask('doc', ['clean:doc']);
 
   grunt.registerTask('unitTest', ['mochaTest:unit']);
 

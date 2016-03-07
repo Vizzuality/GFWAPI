@@ -5,7 +5,13 @@
         "toFile": false,
         "dirLogFile": null
     },
-    "server": {
-        "port": 3000
+    "service": {
+        "name": "Skeleton Service",
+        "hostname": "localhost",
+        "port": 3000,
+        "protocol": "http"
+    },
+    "apiGateway":{
+        "uri": "http://localhost:8000/gateway/service"
     }
 }
