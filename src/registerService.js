@@ -58,8 +58,7 @@ var register = function () {
                     body: serviceConfig
                 });
                 if(result.statusCode !== 200) {
-                    logger.error('Error registering service');
-                    logger.error(result);
+                    logger.error('Error registering service:', result.body);
                     process.exit();
                 } else {
                     idService = result.body._id;
