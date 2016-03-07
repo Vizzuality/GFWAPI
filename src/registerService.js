@@ -14,6 +14,7 @@ var unregister = function* () {
             uri: apiGatewayUri + '/' + idService,
             method: 'DELETE'
         });
+        logger.debug(result);
         if(result.statusCode !== 200) {
             logger.error('Error unregistering service');
             // process.exit();
@@ -47,7 +48,7 @@ var register = function () {
                     url:  config.get('service.uri') + '/api/users'
                 }]
             };
-            logger.debug(serviceConfig);
+            
             try {
 
                 let result = yield request({
@@ -58,7 +59,7 @@ var register = function () {
                 });
 
                 if(result.statusCode !== 200) {
-                    logger.error('Error registering service:', result);
+                    logger.error('Error registering service:', result.body);
                     process.exit();
                 } else {
                     idService = result.body._id;
