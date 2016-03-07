@@ -1,6 +1,6 @@
 'use strict';
 var logger = require('logger');
-var ErrorSerializer = require('serializers/ErrorSerializer');
+var ErrorSerializer = require('serializers/errorSerializer');
 var roles = require('../../example.json').roles;
 
 
