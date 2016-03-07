@@ -4,7 +4,7 @@
   "description": "Skeleton to construct microservices in nodejs",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_PATH=src NODE_ENV=test grunt mochaTest",
+    "test": "NODE_PATH=src NODE_ENV=test grunt test",
     "test-e2e": "NODE_PATH=src NODE_ENV=test grunt e2eTest",
     "test-unit": "NODE_PATH=src NODE_ENV=test grunt unitTest",
     "develop": "NODE_PATH=src grunt | bunyan",
