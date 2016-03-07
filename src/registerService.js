@@ -42,12 +42,7 @@ var register = function () {
                 method: 'GET',
                 endpoints: [{
                     method: 'GET',
-                    url: url.format({
-                        protocol: config.get('service.protocol'),
-                        hostname: config.get('service.hostname'),
-                        port: config.get('service.port'),
-                        pathname: '/api/users'
-                    })
+                    url:  config.get('service.uri') + '/api/users'
                 }]
             };
             try {

@@ -10,9 +10,7 @@
     },
     "service": {
         "name": "Skeleton Service",
-        "hostname": "localhost",
-        "port": 3000,
-        "protocol": "http"
+        "uri": "http://user-microservice-vizzuality.herokuapp.com"
     },
     "apiGateway":{
         "uri": "http://localhost:8000/gateway/service"
