@@ -10,12 +10,12 @@
             "path": "/api/users"
         }]
     }, {
-        "url": "/usuarios/:name",
+        "url": "/usuarios",
         "method": "POST",
         "endpoints": [{
             "method": "POST",
             "baseUrl": "#(service.uri)",
-            "path": "/api/users/:name"
+            "path": "/api/users"
         }]
     }]
 }
