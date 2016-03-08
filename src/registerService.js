@@ -35,34 +35,19 @@ var exitHandler = function (signal) {
     // });
 };
 
+var loadRegisterFile = function(){
+    var registerData = JSON.stringify(require('register.json'));    
+    return JSON.parse(registerData.replace(/#\(service.id\)/g, config.get('service.id'))
+        .replace(/#\(service.name\)/g, config.get('service.name'))
+        .replace(/#\(service.uri\)/g, config.get('service.uri')));
+}
+
 var register = function () {
     var pack = require('../package.json');
     co(function* () {
         if(process.env.SELF_REGISTRY) {
             logger.info('Registering service in API Gateway...');
-            logger.debug('asdfad');
-            let serviceConfig = {
-                id: config.get('service.id'),
-                name: config.get('service.name'),                
-                urls: [{
-                    url: '/usuarios',
-                    method: 'GET',
-                    endpoints: [{
-                        method: 'GET',
-                        baseUrl: config.get('service.uri'),
-                        path: '/api/users'
-                    }]
-                },{
-                    url: '/usuarios/:name',
-                    method: 'POST',
-                    endpoints: [{
-                        method: 'POST',
-                        baseUrl: config.get('service.uri'),
-                        path: '/api/users/:name'
-                    }]
-                }]
-
-            };
+            let serviceConfig = loadRegisterFile();
             logger.debug(serviceConfig);
             try {
 

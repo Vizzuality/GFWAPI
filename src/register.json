@@ -1,0 +1,21 @@
+{
+    "id": "#(service.id)",
+    "name": "#(service.name)",
+    "urls": [{
+        "url": "/usuarios",
+        "method": "GET",
+        "endpoints": [{
+            "method": "GET",
+            "baseUrl": "#(service.uri)",
+            "path": "/api/users"
+        }]
+    }, {
+        "url": "/usuarios/:name",
+        "method": "POST",
+        "endpoints": [{
+            "method": "POST",
+            "baseUrl": "#(service.uri)",
+            "path": "/api/users/:name"
+        }]
+    }]
+}
