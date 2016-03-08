@@ -34,6 +34,6 @@ class UserRouter {
 }
 
 router.get('/', UserRouter.getUsers);
-router.post('/:name', UserValidator.create, UserRouter.createUser);
+router.post('/', UserValidator.create, UserRouter.createUser);
 
 module.exports = router;
