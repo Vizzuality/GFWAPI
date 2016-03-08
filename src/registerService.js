@@ -36,11 +36,11 @@ var exitHandler = function (signal) {
 };
 
 var loadRegisterFile = function(){
-    var registerData = JSON.stringify(require('register.json'));    
+    var registerData = JSON.stringify(require('register.json'));
     return JSON.parse(registerData.replace(/#\(service.id\)/g, config.get('service.id'))
         .replace(/#\(service.name\)/g, config.get('service.name'))
         .replace(/#\(service.uri\)/g, config.get('service.uri')));
-}
+};
 
 var register = function () {
     var pack = require('../package.json');
