@@ -1,14 +1,13 @@
 # Node microservice skeleton
 This repository is the base the all microservices implemented in nodejs.
 
-## Installation
+## Installation in local
 
 ```bash
 npm install
 
 npm install -g bunyan  // logger system
 ```
-
 ## Run
 Execute the next command: Environment available: dev, test, staging, prod
 
@@ -39,6 +38,14 @@ We use grunt. Execute the next command:
 ```bash
     npm run develop
 ```
+
+## Production and Staging installation environment
+Is necessary define the next environment variables:
+
+* API_GATEWAY_URI => Url the register of the API Gateway. Remember: If the authentication is active in API Gateway, add the username and password in the url
+* NODE_ENV => Environment (prod, staging, dev)
+
+
 
 ## Estructure
 ### Routes Folder
