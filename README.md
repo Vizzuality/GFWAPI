@@ -83,6 +83,12 @@ This file is responsible for loading all routes and declare it. it search all fi
 ### logger.js
 This file config logger of the application
 
+## register.json
+This file contain the configuration about the endpoints that public the microservice. This json will send to the apigateway. it can contain variables:
+* #(service.id) => Id of the service setted in the config file by environment
+* #(service.name) => Name of the service setted in the config file by environment
+* #(service.uri) => Base uri of the service setted in the config file by environment
+
 ## test
 This folder contains the tests of the microservice. 2 folders
 
