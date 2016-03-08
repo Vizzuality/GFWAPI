@@ -29,6 +29,7 @@ var unregister = function* () {
 
 var exitHandler = function (signal) {
     logger.error('Signal', signal);
+    process.exit();
     // co(function* () {
     //     yield unregister();
     // });
@@ -42,13 +43,22 @@ var register = function () {
             logger.debug('asdfad');
             let serviceConfig = {
                 id: config.get('service.id'),
-                name: config.get('service.name'),
+                name: config.get('service.name'),                
                 urls: [{
                     url: '/usuarios',
                     method: 'GET',
                     endpoints: [{
                         method: 'GET',
-                        url: config.get('service.uri') + '/api/users'
+                        baseUrl: config.get('service.uri'),
+                        path: '/api/users'
+                    }]
+                },{
+                    url: '/usuarios/:name',
+                    method: 'POST',
+                    endpoints: [{
+                        method: 'POST',
+                        baseUrl: config.get('service.uri'),
+                        path: '/api/users/:name'
                     }]
                 }]
 
