@@ -4,6 +4,7 @@ var logger = require('logger');
 var request = require('co-request');
 var url = require('url');
 var co = require('co');
+var slug = require('slug');
 var idService = null;
 var apiGatewayUri = process.env.API_GATEWAY_URI || config.get('apiGateway.uri');
 
@@ -26,48 +27,58 @@ var unregister = function* () {
     }
 };
 
-var exitHandler = function () {
-    co(function* () {
-        yield unregister();
-    });
+var exitHandler = function (signal) {
+    logger.error('Signal', signal);
+    // co(function* () {
+    //     yield unregister();
+    // });
 };
 
 var register = function () {
-    co(function *(){
+    var pack = require('../package.json');
+    co(function* () {
         if(process.env.SELF_REGISTRY) {
             logger.info('Registering service in API Gateway...');
+            logger.debug('asdfad');
             let serviceConfig = {
+                id: config.get('service.id'),
                 name: config.get('service.name'),
-                url: '/usuarios',
-                method: 'GET',
-                endpoints: [{
+                urls: [{
+                    url: '/usuarios',
                     method: 'GET',
-                    url:  config.get('service.uri') + '/api/users'
+                    endpoints: [{
+                        method: 'GET',
+                        url: config.get('service.uri') + '/api/users'
+                    }]
                 }]
+
             };
+            logger.debug(serviceConfig);
             try {
+
                 let result = yield request({
                     uri: apiGatewayUri,
                     method: 'POST',
                     json: true,
                     body: serviceConfig
                 });
+
                 if(result.statusCode !== 200) {
-                    logger.error('Error registering service:', result.body);
+                    logger.error('Error registering service:', result);
                     process.exit();
                 } else {
                     idService = result.body._id;
                 }
 
                 logger.info('Register service in API Gateway correct!');
-                process.on('exit', exitHandler);
-                process.on('SIGINT', exitHandler);
-                process.on('SIGTERM', exitHandler);
-                process.on('SIGKILL', exitHandler);
-                process.on('uncaughtException', exitHandler);
+                process.on('exit', exitHandler.bind(this, 'exit'));
+                process.on('SIGINT', exitHandler.bind(this, 'SIGINT'));
+                process.on('SIGTERM', exitHandler.bind(this, 'SIGTERM'));
+                // process.on('SIGKILL', exitHandler.bind(this, 'SIGKILL'));
+                process.on('uncaughtException', exitHandler.bind(this, 'uncaughtException'));
 
             } catch(e) {
-                logger.error('Error registering service', e);
+                logger.error('Error registering service2', e);
                 process.exit();
             }
         }

@@ -9,6 +9,7 @@
         "port": null
     },
     "service": {
+        "id": "skelegon-service_1.0.0",
         "name": "Skeleton Service",
         "uri": "localhost",
         "port": null
