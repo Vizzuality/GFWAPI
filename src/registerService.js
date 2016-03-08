@@ -4,6 +4,7 @@ var logger = require('logger');
 var request = require('co-request');
 var url = require('url');
 var co = require('co');
+var slug = require('slug');
 var idService = null;
 var apiGatewayUri = process.env.API_GATEWAY_URI || config.get('apiGateway.uri');
 
@@ -28,32 +29,29 @@ var unregister = function* () {
 
 var exitHandler = function (signal) {
     logger.error('Signal', signal);
-    require('request').del(apiGatewayUri + '/' + idService, function (error, response, body) {
-        if(!error && response.statusCode == 200) {
-            console.log(body) // Show the HTML for the Google homepage.
-        } else{
-            logger.error('Error unregistering service');
-        }
-        process.exit();
-    });
     // co(function* () {
     //     yield unregister();
     // });
 };
 
 var register = function () {
+    var pack = require('../package.json');
     co(function* () {
         if(process.env.SELF_REGISTRY) {
             logger.info('Registering service in API Gateway...');
             logger.debug('asdfad');
             let serviceConfig = {
+                id: config.get('service.id'),
                 name: config.get('service.name'),
-                url: '/usuarios',
-                method: 'GET',
-                endpoints: [{
+                urls: [{
+                    url: '/usuarios',
                     method: 'GET',
-                    url: config.get('service.uri') + '/api/users'
+                    endpoints: [{
+                        method: 'GET',
+                        url: config.get('service.uri') + '/api/users'
+                    }]
                 }]
+
             };
             logger.debug(serviceConfig);
             try {
