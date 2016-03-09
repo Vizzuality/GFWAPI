@@ -8,6 +8,7 @@ var bodyParser = require('koa-bodyparser');
 var koaLogger = require('koa-logger');
 var loader = require('loader');
 var validate = require('koa-validate');
+var ErrorSerializer = require('serializers/errorSerializer');
 
 // instance of koa
 var app = koa();
