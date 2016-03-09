@@ -3,10 +3,15 @@
  */
 module.exports = (function () {
   'use strict';
+
   var fs = require('fs');
   var routersPath = __dirname + '/routes';
   var logger = require('logger');
   var mount = require('koa-mount');
+
+  var isHiddenFile = function(path) {
+    return (/(^|\/)\.[^\/\.]/g).test(path);
+  };
 
   var loadAPI = function (app, path, pathApi) {
     var routesFiles = fs.readdirSync(path);
@@ -16,7 +21,7 @@ module.exports = (function () {
       var stat = fs.statSync(newPath);
 
       if(!stat.isDirectory()) {
-        if(file.lastIndexOf('Router.js') !== -1) {
+        if(!isHiddenFile(file) && file.lastIndexOf('Router.js') !== -1) {
           if(file === 'indexRouter.js') {
             existIndexRouter = true;
           } else {
@@ -34,6 +39,7 @@ module.exports = (function () {
         loadAPI(app, newPath, newPathAPI);
       }
     });
+
     if(existIndexRouter) {
       // load indexRouter when finish other Router
       var newPath = path ? (path + '/indexRouter.js') : 'indexRouter.js';
@@ -51,7 +57,6 @@ module.exports = (function () {
     loadAPI(app, routersPath);
     logger.debug('Loaded routes correctly!');
   };
-
 
   return {
     loadRoutes: loadRoutes
