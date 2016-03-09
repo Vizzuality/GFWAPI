@@ -157,7 +157,7 @@ definitions:
     required:
       - name
       - email
-      - rol
+      - role
     properties:
       name:
         type: string

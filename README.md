@@ -47,7 +47,7 @@ Is necessary define the next environment variables:
 
 
 
-## Estructure
+## Structure
 ### Routes Folder
 This folder contain the distinct files that define the routes of the microservice. All files must be end with suffix Router. Ex:
 

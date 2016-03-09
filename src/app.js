@@ -14,19 +14,23 @@ var app = koa();
 
 //if environment is dev then load koa-logger
 if(process.env.NODE_ENV === 'dev') {
-  app.use(koaLogger());
+    app.use(koaLogger());
 }
 
 app.use(bodyParser());
 
-app.use(function *(next) {
-  try {
-    yield next;
-  } catch(err) {
-    this.status = err.status || 500;
-    this.body = err.message;
-  }
-  this.response.type = 'application/vnd.api+json';
+//catch errors and send in jsonapi standard. Always return vnd.api+json
+app.use(function* (next) {
+    try {
+        yield next;
+    } catch(err) {
+        this.status = err.status || 500;
+        this.body = ErrorSerializer.serializeError(this.status, err.message );
+        if(process.env.NODE_ENV !== 'dev' && this.status === 500 ){
+            this.body = 'Unexpected error';
+        }
+    }
+    this.response.type = 'application/vnd.api+json';
 });
 
 app.use(validate());
@@ -42,7 +46,7 @@ var server = require('http').Server(app.callback());
 var port = process.env.PORT || config.get('service.port');
 
 // Listen in port and localhost. Only localhost because by security, this microservice is only accesible from the same machine
-server.listen(port, function(){
+server.listen(port, function () {
     require('registerService')();
 });
 
