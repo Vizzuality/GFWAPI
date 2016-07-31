@@ -42,6 +42,16 @@ cd microservice-node-skeleton
 
 
 ## Configuration
+### API configuration
+We need define the public api of the microservice and his documentation. This configuration is allocated in app/microservice folder. This folder must contain 3 files:
+* register.json: it contains the urls configuration. This file can contain two variables (#(service.id), #(service.name)). [Example file](app/microservice/register.json)
+* public-swagger.yml: it contains the documentation of the public urls [Example file](app/microservice/public-swagger.json)
+* swagger.yml: it contains the documentation of the private urls. [Example file](app/microservice/swagger.json)
+
+The vizz.microservice-client read the register.json and public-swagger.yml files and when the api-gateway call to /info, he returns the content of this files because this files contains the config of the microservice.
+
+### Environment configuration
+
 We can define our configuration in environment variables or in config files.
 To config file, we use this library: [config](https://github.com/lorenwest/node-config#readme)
 
