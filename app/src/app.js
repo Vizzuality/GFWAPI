@@ -13,20 +13,20 @@ var validate = require('koa-validate');
 var app = koa();
 
 //if environment is dev then load koa-logger
-if(process.env.NODE_ENV === 'dev') {
-  app.use(koaLogger());
+if (process.env.NODE_ENV === 'dev') {
+    app.use(koaLogger());
 }
 
 app.use(bodyParser());
 
-app.use(function *(next) {
-  try {
-    yield next;
-  } catch(err) {
-    this.status = err.status || 500;
-    this.body = err.message;
-  }
-  this.response.type = 'application/vnd.api+json';
+app.use(function*(next) {
+    try {
+        yield next;
+    } catch (err) {
+        this.status = err.status || 500;
+        this.body = err.message;
+    }
+    this.response.type = 'application/vnd.api+json';
 });
 
 app.use(validate());
@@ -42,10 +42,22 @@ var server = require('http').Server(app.callback());
 var port = process.env.PORT || config.get('service.port');
 
 // Listen in port and localhost. Only localhost because by security, this microservice is only accesible from the same machine
-server.listen(port, function(){
-    require('registerService')();
-});
+server.listen(port, function() {
 
+    // Config the microservice client to listen /info endpoint in this microservice.
+    var p = require('vizz.microservice-client').register({
+        id: config.get('service.id'),
+        name: config.get('service.name'),
+        dirConfig: path.join(__dirname, '../microservice'),
+        dirPackage: path.join(__dirname, '../../'),
+        logger: logger,
+        app: app
+    });
+    p.then(function() {}, function(err) {
+        logger.error(err);
+        process.exit(1);
+    });
+});
 
 
 logger.info('Server started in port:' + port);

@@ -1,55 +1,92 @@
 # Node microservice skeleton
-This repository is the base the all microservices implemented in nodejs.
+This repository is the base the all microservices implemented in nodejs with koajs framework.
+
+
+[View the documentation for this
+API](http://gfw-api.github.io/swagger-ui/?url=https://raw.githubusercontent.com/Vizzuality/microservice-node-skeleton/master/app/microservice/swagger.yml)
+
+1. [Installation](#installation)
+2. [Configuration](#configuration)
+3. [Run in develop mode](#run-in-develop-mode)
+4. [Test](#test)
+4. [Directory structure](#directory-structure)
+
 
 ## Installation
 
-```bash
-npm install
+### OS X
 
-npm install -g bunyan  // logger system
+**First, make sure that you have the [API gateway running
+locally](https://github.com/Vizzuality/api-gateway#readme). and you add microservice's config (url and port) in the consul file of api-gateway [info](https://github.com/Vizzuality/api-gateway#user-content-how-are-microservices-discovered)**
+
+We're using Docker which, luckily for you, means that getting the
+application running locally should be fairly painless. First, make sure
+that you have [Docker Compose](https://docs.docker.com/compose/install/)
+installed on your machine.
+
+If you've not used Docker before, you may need to set up some defaults:
+
+```
+docker-machine create --driver virtualbox default
+docker-machine start default
+eval $(docker-machine env default)
 ```
 
-## Run
-Execute the next command: Environment available: dev, test, staging, prod
+Now we're ready to actually get the application running:
 
-```bash
-    NODE_ENV=<env> npm start
+```
+git clone https://github.com/Vizzuality/microservice-node-skeleton.git
+cd microservice-node-skeleton
 ```
 
-if you want see the logs formatted execute:
 
-```bash
-    NODE_ENV=<env> npm start | bunyan
-```
 
-## Execute test
-```bash
-    npm test
-```
+## Configuration
+We can define our configuration in environment variables or in config files.
+To config file, we use this library: [config](https://github.com/lorenwest/node-config#readme)
 
-if you want see the logs formatted execute:
+To start, we need define this environment variables:
+* API_GATEWAY_URL : Is the url where it is up our api-gateway. It is only necessary for the development environment
+* PORT: Port number where our microservice is listening. Must be the same that we configure in docker-compose-*.yml files.
 
-```bash
-    npm test | bunyan
-```
+When you are creating environment variables or add settings in our configuration files?
+If the configuration has sensible data (password, tokens, etc), we need configure in environment variables and if we want use config module, we can use this [custom-environment-variables](https://github.com/lorenwest/node-config/wiki/Environment-Variables#custom-environment-variables).
+In other case, we can use config files.
 
 ## Run in develop mode
-We use grunt. Execute the next command:
+We use docker and grunt. Execute the next command:
 
 ```bash
-    npm run develop
+    ./microservice develop
+```
+When the microservice run,
+
+When starting, the microservice makes a request to the api-gateway. In this way, the api-gateway refresh his configuration.Then, you can now access the microservice through the API gateway.
+
+## Test
+To execute test, execute this command:
+```bash
+    ./microservice test
 ```
 
-## Estructure
+if you want see the logs formatted execute:
+
+```bash
+    ./microservice test | bunyan
+```
+
+## Directory structure
+
 ### Routes Folder
 This folder contain the distinct files that define the routes of the microservice. All files must be end with suffix Router. Ex:
 
 ```bash
 /routes
 ------ /api
----------- userRouter.js // in this file define /user
+---------- /v1
+-------------- userRouter.js // in this file define /user
 
-The complete path is: /api/user
+The complete path is: /api/v1/user
 ```
 
 The name of subfolders of the routes folder define the subpath of the endpoints
