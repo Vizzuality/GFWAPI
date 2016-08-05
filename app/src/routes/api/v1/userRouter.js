@@ -6,8 +6,8 @@ var UserValidator = require('validators/userValidator');
 var UserSerializer = require('serializers/userSerializer');
 
 //only for the example
-var users = require('../../../example.json').users;
-var roles = require('../../../example.json').roles;
+var users = require('../../../../example.json').users;
+var roles = require('../../../../example.json').roles;
 
 
 var router = new Router({
