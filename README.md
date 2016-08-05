@@ -43,25 +43,25 @@ cd microservice-node-skeleton
 
 ## Configuration
 ### API configuration
-We need define the public api of the microservice and his documentation. This configuration is allocated in app/microservice folder. This folder must contain 3 files:
+We need define the public api of the microservice and its documentation. This configuration is allocated in app/microservice folder. This folder must contain 3 files:
 * register.json: it contains the urls configuration. This file can contain two variables (#(service.id), #(service.name)). [Example file](app/microservice/register.json)
 * public-swagger.yml: it contains the documentation of the public urls [Example file](app/microservice/public-swagger.json)
 * swagger.yml: it contains the documentation of the private urls. [Example file](app/microservice/swagger.json)
 
-The vizz.microservice-client read the register.json and public-swagger.yml files and when the api-gateway call to /info, he returns the content of this files because this files contains the config of the microservice.
+The vizz.microservice-client reads the register.json and public-swagger.yml files and when the api-gateway calls to /info, returns the content of this files, because this files contain the config of the microservice.
 
 ### Environment configuration
 
 We can define our configuration in environment variables or in config files.
-To config file, we use this library: [config](https://github.com/lorenwest/node-config#readme)
+For config file, we use this library: [config](https://github.com/lorenwest/node-config#readme)
 
 To start, we need define this environment variables:
-* API_GATEWAY_URL : Is the url where it is up our api-gateway. It is only necessary for the development environment
+* API_GATEWAY_URL : Is the url where our api-gateway runs. It is only necessary for the development environment
 * PORT: Port number where our microservice is listening. Must be the same that we configure in docker-compose-*.yml files.
 
-When you are creating environment variables or add settings in our configuration files?
-If the configuration has sensible data (password, tokens, etc), we need configure in environment variables and if we want use config module, we can use this [custom-environment-variables](https://github.com/lorenwest/node-config/wiki/Environment-Variables#custom-environment-variables).
-In other case, we can use config files.
+Creating environment variables or add settings in our configuration files
+If the configuration has sensible data (password, tokens, etc), we need to configure in environment variables and if we want use config module, we can use this [custom-environment-variables](https://github.com/lorenwest/node-config/wiki/Environment-Variables#custom-environment-variables).
+In other cases, we can use config files.
 
 ## Run in develop mode
 We use docker and grunt. Execute the next command:
@@ -69,9 +69,9 @@ We use docker and grunt. Execute the next command:
 ```bash
     ./microservice develop
 ```
-When the microservice run,
+When the microservice runs
 
-When starting, the microservice makes a request to the api-gateway. In this way, the api-gateway refresh his configuration.Then, you can now access the microservice through the API gateway.
+When starting, the microservice makes a request to the api-gateway. The api-gateway refreshes its configuration. You can now access the microservice through the API gateway.
 
 ## Test
 To execute test, execute this command:
@@ -88,7 +88,7 @@ if you want see the logs formatted execute:
 ## Directory structure
 
 ### Routes Folder
-This folder contain the distinct files that define the routes of the microservice. All files must be end with suffix Router. Ex:
+This folder contains the distinct files that define the routes of the microservice. All files must be end with suffix Router. Ex:
 
 ```bash
 /routes
