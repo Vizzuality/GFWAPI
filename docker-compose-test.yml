@@ -1,0 +1,10 @@
+test:
+  extends:
+    file: base.yml
+    service: base
+  ports:
+    - "3100"
+  container_name: microservice-node-skeleton-test
+  environment:
+    NODE_ENV: test
+  command: test

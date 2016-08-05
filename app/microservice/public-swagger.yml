@@ -1,0 +1,203 @@
+swagger: '2.0'
+info:
+  title: Example microservice
+  description: Example microservice
+  version: "1.0.0"
+host: example.vizzuality.com
+
+schemes:
+  - https
+  - http
+
+produces:
+  - application/json
+
+paths:
+  /users:
+    get:
+      summary: Users
+      description: |
+        List of users
+      tags:
+        - Users
+      operationId: getUsers
+      responses:
+        200:
+          description: An array of users
+          schema:
+            $ref: '#/definitions/UserJSONAPI'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Errors'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Errors'
+    post:
+      summary: Create user
+      description: Create user
+      tags:
+        - Users
+      operationId: createUser
+      parameters:
+        - name: user
+          in: body
+          description: User to save
+          required: true
+          schema:
+            $ref: '#/definitions/UserCreate'
+      responses:
+        200:
+          description: The object created
+          schema:
+            $ref: '#/definitions/UserJSONAPI'
+        400:
+          description: Validate error
+          schema:
+            $ref: '#/definitions/UserJSONAPI'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Errors'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Errors'
+
+definitions:
+  Errors:
+    type: object
+    description: Errors
+    properties:
+      errors:
+        type: array
+        items:
+          $ref: '#/definitions/Error'
+
+  Error:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int32
+        description: A unique identifier for this particular occurrence of the problem.
+      links:
+        type: object
+        description: A links object
+        properties:
+          about:
+            type: string
+            description: A link that leads to further details about this particular occurrence of the problem.
+      status:
+        type: string
+        description: The HTTP status code applicable to this problem, expressed as a string value
+      code:
+        type: string
+        description: An application-specific error code, expressed as a string value
+      title:
+        type: string
+        description: A short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+      detail:
+        type: string
+        description: A human-readable explanation specific to this occurrence of the problem. Like title, this field's value can be localized
+      source:
+        type: object
+        description: An object containing references to the source of the error, optionally including any of the following members
+        properties:
+          pointer:
+            type: string
+            description: A JSON Pointer [RFC6901] to the associated entity in the request document
+          parameter:
+            type: string
+            description: A string indicating which URI query parameter caused the error.
+      meta:
+        type: object
+        description: A meta object containing non-standard meta-information about the error.
+
+  ModelDataJSONAPI:
+    type: object
+    properties:
+      type:
+        type: string
+        description: Resource's name
+      id:
+        type: string
+        description: Resource's id
+
+  UserJSONAPI:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/User'
+      included:
+        type: array
+        items:
+          $ref: '#/definitions/Role'
+
+  Role:
+    type: object
+    properties:
+      type:
+        type: string
+        description: Resource type
+      id:
+        type: string
+        description: Resource id
+      attributes:
+        properties:
+          name:
+            type: string
+            description: Role's name
+  UserCreate:
+    type: object
+    required:
+      - name
+      - email
+      - rol
+    properties:
+      name:
+        type: string
+        description: User's name
+      email:
+        type: string
+        description: User's email
+      age:
+        type: integer
+        format: int32
+        description: User's age
+      role:
+        type: integer
+        format: int32
+        description: User's role id
+  User:
+    type: object
+    properties:
+      type:
+        type: string
+        description: Resource type
+      id:
+        type: string
+        description: Resource id
+      attributes:
+        properties:
+          name:
+            type: string
+            description: User's name
+          email:
+            type: string
+            description: User's email
+          age:
+            type: integer
+            format: int32
+            description: User's age
+      relationships:
+        properties:
+          role:
+            type: object
+            description: User's role
+            properties:
+              data:
+                $ref: '#/definitions/ModelDataJSONAPI'

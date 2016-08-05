@@ -1,62 +1,102 @@
 # Node microservice skeleton
-This repository is the base the all microservices implemented in nodejs.
+This repository is the base the all microservices implemented in nodejs with koajs framework.
 
-## Installation in local
 
-```bash
-npm install
+[View the documentation for this
+API](http://gfw-api.github.io/swagger-ui/?url=https://raw.githubusercontent.com/Vizzuality/microservice-node-skeleton/develop/app/microservice/swagger.yml)
 
-npm install -g bunyan  // logger system
+1. [Installation](#installation)
+2. [Configuration](#configuration)
+3. [Run in develop mode](#run-in-develop-mode)
+4. [Test](#test)
+4. [Directory structure](#directory-structure)
+
+
+## Installation
+
+### OS X
+
+**First, make sure that you have the [API gateway running
+locally](https://github.com/Vizzuality/api-gateway#readme). and you add microservice's config (url and port) in the consul file of api-gateway [info](https://github.com/Vizzuality/api-gateway#user-content-how-are-microservices-discovered)**
+
+We're using Docker which, luckily for you, means that getting the
+application running locally should be fairly painless. First, make sure
+that you have [Docker Compose](https://docs.docker.com/compose/install/)
+installed on your machine.
+
+If you've not used Docker before, you may need to set up some defaults:
+
 ```
-## Run
-Execute the next command: Environment available: dev, test, staging, prod
-
-```bash
-    NODE_ENV=<env> npm start
+docker-machine create --driver virtualbox default
+docker-machine start default
+eval $(docker-machine env default)
 ```
 
-if you want see the logs formatted execute:
+Now we're ready to actually get the application running:
 
-```bash
-    NODE_ENV=<env> npm start | bunyan
+```
+git clone https://github.com/Vizzuality/microservice-node-skeleton.git
+cd microservice-node-skeleton
 ```
 
-## Execute test
-```bash
-    npm test
-```
 
-if you want see the logs formatted execute:
 
-```bash
-    npm test | bunyan
-```
+## Configuration
+### API configuration
+We need define the public api of the microservice and its documentation. This configuration is allocated in app/microservice folder. This folder must contain 3 files:
+* register.json: it contains the urls configuration. This file can contain two variables (#(service.id), #(service.name)). [Example file](app/microservice/register.json)
+* public-swagger.yml: it contains the documentation of the public urls [Example file](app/microservice/public-swagger.json)
+* swagger.yml: it contains the documentation of the private urls. [Example file](app/microservice/swagger.json)
+
+The vizz.microservice-client reads the register.json and public-swagger.yml files and when the api-gateway calls to /info, returns the content of this files, because this files contain the config of the microservice.
+
+### Environment configuration
+
+We can define our configuration in environment variables or in config files.
+For config file, we use this library: [config](https://github.com/lorenwest/node-config#readme)
+
+To start, we need define this environment variables:
+* API_GATEWAY_URL : Is the url where our api-gateway runs. It is only necessary for the development environment
+* PORT: Port number where our microservice is listening. Must be the same that we configure in docker-compose-*.yml files.
+
+Creating environment variables or add settings in our configuration files
+If the configuration has sensible data (password, tokens, etc), we need to configure in environment variables and if we want use config module, we can use this [custom-environment-variables](https://github.com/lorenwest/node-config/wiki/Environment-Variables#custom-environment-variables).
+In other cases, we can use config files.
 
 ## Run in develop mode
-We use grunt. Execute the next command:
+We use docker and grunt. Execute the next command:
 
 ```bash
-    npm run develop
+    ./microservice develop
+```
+When the microservice runs
+
+When starting, the microservice makes a request to the api-gateway. The api-gateway refreshes its configuration. You can now access the microservice through the API gateway.
+
+## Test
+To execute test, execute this command:
+```bash
+    ./microservice test
 ```
 
-## Production and Staging installation environment
-Is necessary define the next environment variables:
+if you want see the logs formatted execute:
 
-* API_GATEWAY_URI => Url the register of the API Gateway. Remember: If the authentication is active in API Gateway, add the username and password in the url
-* NODE_ENV => Environment (prod, staging, dev)
+```bash
+    ./microservice test | bunyan
+```
 
+## Directory structure
 
-
-## Structure
 ### Routes Folder
-This folder contain the distinct files that define the routes of the microservice. All files must be end with suffix Router. Ex:
+This folder contains the distinct files that define the routes of the microservice. All files must be end with suffix Router. Ex:
 
 ```bash
 /routes
 ------ /api
----------- userRouter.js // in this file define /user
+---------- /v1
+-------------- userRouter.js // in this file define /user
 
-The complete path is: /api/user
+The complete path is: /api/v1/user
 ```
 
 The name of subfolders of the routes folder define the subpath of the endpoints
@@ -89,12 +129,6 @@ This file is responsible for loading all routes and declare it. it search all fi
 
 ### logger.js
 This file config logger of the application
-
-## register.json
-This file contain the configuration about the endpoints that public the microservice. This json will send to the apigateway. it can contain variables:
-* #(service.id) => Id of the service setted in the config file by environment
-* #(service.name) => Name of the service setted in the config file by environment
-* #(service.uri) => Base uri of the service setted in the config file by environment
 
 ## test
 This folder contains the tests of the microservice. 2 folders
