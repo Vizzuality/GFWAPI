@@ -3,7 +3,7 @@ This repository is the base the all microservices implemented in nodejs with koa
 
 
 [View the documentation for this
-API](http://gfw-api.github.io/swagger-ui/?url=https://raw.githubusercontent.com/Vizzuality/microservice-node-skeleton/develop/app/microservice/swagger.yml#MICROSERVICE)
+API](http://gfw-api.github.io/swagger-ui/?url=https://raw.githubusercontent.com/Vizzuality/microservice-node-skeleton/develop/app/microservice/swagger.yml#/MICROSERVICE)
 
 1. [Installation](#installation)
 2. [Configuration](#configuration)
