@@ -8,6 +8,7 @@ var bodyParser = require('koa-bodyparser');
 var koaLogger = require('koa-logger');
 var loader = require('loader');
 var validate = require('koa-validate');
+var ErrorSerializer = require('serializers/errorSerializer');
 
 // instance of koa
 var app = koa();
@@ -19,12 +20,14 @@ if (process.env.NODE_ENV === 'dev') {
 
 app.use(bodyParser());
 
+
 app.use(function*(next) {
     try {
         yield next;
     } catch (err) {
         this.status = err.status || 500;
         this.body = err.message;
+
     }
     this.response.type = 'application/vnd.api+json';
 });
@@ -42,6 +45,7 @@ var server = require('http').Server(app.callback());
 var port = process.env.PORT || config.get('service.port');
 
 // Listen in port and localhost. Only localhost because by security, this microservice is only accesible from the same machine
+
 server.listen(port, function() {
 
     // Config the microservice client to listen /info endpoint in this microservice.

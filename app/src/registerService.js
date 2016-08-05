@@ -29,9 +29,17 @@ var unregister = function* () {
 
 var exitHandler = function (signal) {
     logger.error('Signal', signal);
+    process.exit();
     // co(function* () {
     //     yield unregister();
     // });
+};
+
+var loadRegisterFile = function(){
+    var registerData = JSON.stringify(require('register.json'));
+    return JSON.parse(registerData.replace(/#\(service.id\)/g, config.get('service.id'))
+        .replace(/#\(service.name\)/g, config.get('service.name'))
+        .replace(/#\(service.uri\)/g, config.get('service.uri')));
 };
 
 var register = function () {
@@ -39,20 +47,7 @@ var register = function () {
     co(function* () {
         if(process.env.SELF_REGISTRY) {
             logger.info('Registering service in API Gateway...');
-            logger.debug('asdfad');
-            let serviceConfig = {
-                id: config.get('service.id'),
-                name: config.get('service.name'),
-                urls: [{
-                    url: '/usuarios',
-                    method: 'GET',
-                    endpoints: [{
-                        method: 'GET',
-                        url: config.get('service.uri') + '/api/users'
-                    }]
-                }]
-
-            };
+            let serviceConfig = loadRegisterFile();
             logger.debug(serviceConfig);
             try {
 

@@ -11,7 +11,7 @@
     "service": {
         "id": "skelegon-service_1.0.0",
         "name": "Skeleton Service",
-        "uri": "http://user-microservice-vizzuality.herokuapp.com",
+        "uri": "http://user-microservice-vizz.herokuapp.com",
         "port": null
     },
     "apiGateway":{

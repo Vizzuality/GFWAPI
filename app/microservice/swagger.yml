@@ -20,7 +20,7 @@ paths:
       description: |
         List of users
       tags:
-        - Users
+        - MICROSERVICE
       operationId: getUsers
       responses:
         200:
@@ -39,7 +39,7 @@ paths:
       summary: Create user
       description: Create user
       tags:
-        - Users
+        - MICROSERVICE
       operationId: createUser
       parameters:
         - name: user
@@ -157,7 +157,7 @@ definitions:
     required:
       - name
       - email
-      - rol
+      - role
     properties:
       name:
         type: string
